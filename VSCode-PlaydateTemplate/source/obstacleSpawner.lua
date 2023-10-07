@@ -20,7 +20,13 @@ end
 
 function spawnObstacle()
     local spawnPosition = math.random(1, 3)
-    spawnPosition = spawnPosition * 100
+    if spawnPosition == 1 then
+        spawnPosition = 60
+    elseif spawnPosition == 2 then
+        spawnPosition = 120
+    elseif spawnPosition == 3 then
+        spawnPosition = 180
+    end
     Obstacle(430, spawnPosition, 5)
 end
 

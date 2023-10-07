@@ -9,12 +9,8 @@ function Player:init(x, y)
     Player.super.init(self, playerImage)
     self:moveTo(x, y)
     self:add()
-
     self:setCollideRect(0, 0, self:getSize())
-
     self.crankPos = 0
-
-    return self
 end
 
 function Player:update()
@@ -23,37 +19,6 @@ function Player:update()
 end
 
 function Player:Movement(crankPos)
-    self:crankTry5(crankPos)
-end
-
-function Player:crankTry1(crankPos) -- almost worked but it is reversed
-    if crankPos < 180 then
-        self:moveTo(30, crankPos * 4/3)
-    end
-end
-
-function Player:crankTry2(crankPos) -- works sorta when subtracting 180 from crankpos input
-    print(crankPos)
-    if crankPos < 180 then
-        self:moveTo(30, 240 - (crankPos * 4/3))
-    elseif crankPos < 0 then
-        self:moveTo(30, 240)
-    end
-end
-
-function Player:crankTry3(crankPos)
-    self:moveTo(30, (((crankPos + 180) % 360) * 4/3) - 240)
-end
-
-function Player:crankTry4(crankPos)
-    if crankPos < 180 then
-        self:moveTo(30, 240 - (crankPos * 4/3))
-    elseif crankPos < 0 then
-        self:moveTo(30, 240)
-    end
-end
-
-function Player:crankTry5(crankPos)
     crankPos = -crankPos % 360
     if crankPos < 180 then
         self:moveTo(30, crankPos * 4/3)
