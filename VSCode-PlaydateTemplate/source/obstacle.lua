@@ -15,9 +15,18 @@ function Obstacle:init(x, y, moveSpeed)
 end
 
 function Obstacle:update()
-    self:moveBy(-self.moveSpeed, 0)
-    if self.x < 0 then
-        --Score()
+    local actualX, actualY, collisions, length = self:moveWithCollisions(self.x -self.moveSpeed, self.y)    
+    if length > 0 then
+        for index, collision in pairs(collisions) do
+            local collidedObject = collision['other']
+            if collidedObject:isa(Player) then
+                resetGame()
+            end
+        end
+    end
+    if self.x < -30 then
+        incrementScore()
+        self:remove()
     end
 end
 

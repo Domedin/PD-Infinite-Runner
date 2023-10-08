@@ -5,20 +5,22 @@ local gfx <const> = pd.graphics
 
 local spawnTimer
 
+
 function startSpawner()
     math.randomseed(pd.getSecondsSinceEpoch())
-    createTimer()
+    createTimer(7)
 end
 
-function createTimer()
+function createTimer(spawnSpeed)
     local spawnTime = 1000
     spawnTimer = pd.timer.performAfterDelay(spawnTime, function ()
-        createTimer()
-        spawnObstacle()
+        spawnSpeed *= 1.01
+        createTimer(spawnSpeed)
+        spawnObstacle(spawnSpeed)
     end)
 end
 
-function spawnObstacle()
+function spawnObstacle(spawnSpeed)
     local spawnPosition = math.random(1, 3)
     if spawnPosition == 1 then
         spawnPosition = 60
@@ -27,7 +29,8 @@ function spawnObstacle()
     elseif spawnPosition == 3 then
         spawnPosition = 180
     end
-    Obstacle(430, spawnPosition, 5)
+    Obstacle(430, spawnPosition, spawnSpeed)
+    print(spawnSpeed)
 end
 
 function stopSpawner()
