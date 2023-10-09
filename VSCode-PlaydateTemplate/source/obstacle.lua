@@ -14,6 +14,9 @@ function Obstacle:init(x, y, moveSpeed)
     self.moveSpeed = moveSpeed
 end
 
+local deathSound = playdate.sound.sampleplayer.new("sound/deathSound.wav")
+local pointSound = playdate.sound.sampleplayer.new("sound/point.wav")
+
 function Obstacle:update()
     local actualX, actualY, collisions, length = self:moveWithCollisions(self.x -self.moveSpeed, self.y)    
     if length > 0 then
@@ -21,11 +24,13 @@ function Obstacle:update()
             local collidedObject = collision['other']
             if collidedObject:isa(Player) then
                 resetGame()
+                deathSound:play(1)
             end
         end
     end
-    if self.x < -30 then
+    if self.x < -25 then
         incrementScore()
+        pointSound:play(1)
         self:remove()
     end
 end
